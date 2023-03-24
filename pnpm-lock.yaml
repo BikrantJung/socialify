@@ -2,7 +2,10 @@ lockfileVersion: 5.4
 
 specifiers:
   '@supabase/supabase-js': ^2.12.1
+  '@tabler/icons-react': ^2.11.0
   '@tailwindcss/forms': ^0.5.3
+  '@tanstack/react-query': ^4.28.0
+  '@tanstack/react-query-devtools': ^4.28.0
   '@types/node': 18.15.7
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -11,6 +14,8 @@ specifiers:
   eslint-config-next: 13.2.4
   next: 13.2.4
   postcss: ^8.4.21
+  prettier: ^2.8.7
+  prettier-plugin-tailwindcss: ^0.2.5
   react: 18.2.0
   react-dom: 18.2.0
   tailwindcss: ^3.2.7
@@ -18,7 +23,10 @@ specifiers:
 
 dependencies:
   '@supabase/supabase-js': 2.12.1
+  '@tabler/icons-react': 2.11.0_react@18.2.0
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
+  '@tanstack/react-query': 4.28.0_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query-devtools': 4.28.0_q4teel2yjbizrm4naiaqcdpjum
   '@types/node': 18.15.7
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -32,6 +40,8 @@ dependencies:
 devDependencies:
   autoprefixer: 10.4.14_postcss@8.4.21
   postcss: 8.4.21
+  prettier: 2.8.7
+  prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.7
   tailwindcss: 3.2.7_postcss@8.4.21
 
 packages:
@@ -323,6 +333,20 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@tabler/icons-react/2.11.0_react@18.2.0:
+    resolution: {integrity: sha512-Mbie8IFLrtI0sGm802Bmierle0ixIi7FVczShoLjPZwRM0da1HcD588TF7oMuQ09zd241BY+L7M/f0Q6lquBng==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.11.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons/2.11.0:
+    resolution: {integrity: sha512-KPESQnvHoSpbAdgzDdrSmeZ9AE8fSU12fU3Cag79uXJCUkC8f741fcvPJPsFMDe0S96VSq3mMYF8JnA7a570uQ==}
+    dev: false
+
   /@tailwindcss/forms/0.5.3_tailwindcss@3.2.7:
     resolution: {integrity: sha512-y5mb86JUoiUgBjY/o6FJSFZSEttfb3Q5gllE4xoKjAAD+vBrnIhE4dViwUuow3va8mpH4s9jyUbUbrRGoRdc2Q==}
     peerDependencies:
@@ -330,6 +354,50 @@ packages:
     dependencies:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.2.7_postcss@8.4.21
+    dev: false
+
+  /@tanstack/match-sorter-utils/8.7.6:
+    resolution: {integrity: sha512-2AMpRiA6QivHOUiBpQAVxjiHAA68Ei23ZUMNaRJrN6omWiSFLoYrxGcT6BXtuzp0Jw4h6HZCmGGIM/gbwebO2A==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.4.2
+    dev: false
+
+  /@tanstack/query-core/4.27.0:
+    resolution: {integrity: sha512-sm+QncWaPmM73IPwFlmWSKPqjdTXZeFf/7aEmWh00z7yl2FjqophPt0dE1EHW9P1giMC5rMviv7OUbSDmWzXXA==}
+    dev: false
+
+  /@tanstack/react-query-devtools/4.28.0_q4teel2yjbizrm4naiaqcdpjum:
+    resolution: {integrity: sha512-1SnoMw1CWn8FdPEIHvlAzmMBX3heXJo11fyBtt+FzYAHj5yFC8P67Kpgi0HpLkY7SLnd6QK/7qFkpeH4AQbgZg==}
+    peerDependencies:
+      '@tanstack/react-query': 4.28.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.7.6
+      '@tanstack/react-query': 4.28.0_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      superjson: 1.12.2
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
+  /@tanstack/react-query/4.28.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8cGBV5300RHlvYdS4ea+G1JcZIt5CIuprXYFnsWggkmGoC0b5JaqG0fIX3qwDL9PTNkKvG76NGThIWbpXivMrQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.27.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /@types/json5/0.0.29:
@@ -691,6 +759,13 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    dev: false
+
+  /copy-anything/3.0.3:
+    resolution: {integrity: sha512-fpW2W/BqEzqPp29QS+MwwfisHCQZtiduTe/m8idFo0xbti9fIZ2WVhAsCv4ggFVH3AgCkVdpoOCtQC6gBrdhjw==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.8
     dev: false
 
   /cross-fetch/3.1.5:
@@ -1693,6 +1768,11 @@ packages:
       get-intrinsic: 1.2.0
     dev: false
 
+  /is-what/4.1.8:
+    resolution: {integrity: sha512-yq8gMao5upkPoGEU9LsB2P+K3Kt8Q3fQFCGyNCWOAnJAMzEXVV9drYb0TXr42TTliLLhKIBvulgAXgtLLnwzGA==}
+    engines: {node: '>=12.13'}
+    dev: false
+
   /is-wsl/2.2.0:
     resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
     engines: {node: '>=8'}
@@ -2149,6 +2229,67 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: false
 
+  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.7:
+    resolution: {integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==}
+    engines: {node: '>=12.17.0'}
+    peerDependencies:
+      '@ianvs/prettier-plugin-sort-imports': '*'
+      '@prettier/plugin-php': '*'
+      '@prettier/plugin-pug': '*'
+      '@shopify/prettier-plugin-liquid': '*'
+      '@shufo/prettier-plugin-blade': '*'
+      '@trivago/prettier-plugin-sort-imports': '*'
+      prettier: '>=2.2.0'
+      prettier-plugin-astro: '*'
+      prettier-plugin-css-order: '*'
+      prettier-plugin-import-sort: '*'
+      prettier-plugin-jsdoc: '*'
+      prettier-plugin-organize-attributes: '*'
+      prettier-plugin-organize-imports: '*'
+      prettier-plugin-style-order: '*'
+      prettier-plugin-svelte: '*'
+      prettier-plugin-twig-melody: '*'
+    peerDependenciesMeta:
+      '@ianvs/prettier-plugin-sort-imports':
+        optional: true
+      '@prettier/plugin-php':
+        optional: true
+      '@prettier/plugin-pug':
+        optional: true
+      '@shopify/prettier-plugin-liquid':
+        optional: true
+      '@shufo/prettier-plugin-blade':
+        optional: true
+      '@trivago/prettier-plugin-sort-imports':
+        optional: true
+      prettier-plugin-astro:
+        optional: true
+      prettier-plugin-css-order:
+        optional: true
+      prettier-plugin-import-sort:
+        optional: true
+      prettier-plugin-jsdoc:
+        optional: true
+      prettier-plugin-organize-attributes:
+        optional: true
+      prettier-plugin-organize-imports:
+        optional: true
+      prettier-plugin-style-order:
+        optional: true
+      prettier-plugin-svelte:
+        optional: true
+      prettier-plugin-twig-melody:
+        optional: true
+    dependencies:
+      prettier: 2.8.7
+    dev: true
+
+  /prettier/2.8.7:
+    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
     dependencies:
@@ -2212,6 +2353,10 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       functions-have-names: 1.2.3
+    dev: false
+
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
     dev: false
 
   /resolve-from/4.0.0:
@@ -2392,6 +2537,13 @@ packages:
       react: 18.2.0
     dev: false
 
+  /superjson/1.12.2:
+    resolution: {integrity: sha512-ugvUo9/WmvWOjstornQhsN/sR9mnGtWGYeTxFuqLb4AiT4QdUavjGFRALCPKWWnAiUJ4HTpytj5e0t5HoMRkXg==}
+    engines: {node: '>=10'}
+    dependencies:
+      copy-anything: 3.0.3
+    dev: false
+
   /supports-color/7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
@@ -2561,6 +2713,14 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.3.0
+    dev: false
+
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /utf-8-validate/5.0.10:

@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base {
+  body {
+    @apply font-sans;
+  }
+  *:focus-visible {
+    @apply shadow-ring outline-none ring-0;
+  }
+}
+@layer components {
+  .icon {
+    @apply h-5 w-5 stroke-[1.5px];
+  }
+}
