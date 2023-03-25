@@ -2,18 +2,11 @@ import Button from "@/packages/components/button/Button";
 import Input from "@/packages/components/input/Input";
 import { useCreateUser } from "@/packages/hooks/useCreateUser";
 import { useForm } from "@/packages/hooks/useForm";
-import {
-  IconAt,
-  IconError404,
-  IconLock,
-  IconPointFilled,
-  IconUser,
-} from "@tabler/icons-react";
-import { useRouter } from "next/router";
+import { supabaseAuthClient } from "@/supabase/client";
+import { IconAt, IconLock, IconUser } from "@tabler/icons-react";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { AxiosError } from "axios";
-import { toast, Toaster } from "react-hot-toast";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
 function Register() {
   const router = useRouter();
   const { formValues, handleSubmit, handleChange } = useForm(registerUser, {
@@ -85,20 +78,29 @@ function Register() {
             </span>{" "}
           </p>
         </div>
-        {/* {errors && (
-          <div className="flex flex-col gap-2 ">
-            {errors.map((item) => (
-              <div key={item} className="flex items-center gap-1">
-                <IconError404 className="h-4 w-4 text-red-500" />
-                <p className="text-xs text-red-500">{item}</p>
-              </div>
-            ))}
-          </div>
-        )} */}
       </form>
     </div>
-    // </RegisterPageLayout>
   );
 }
 
 export default Register;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  // Create authenticated Supabase Client
+  const supabase = supabaseAuthClient(ctx);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};

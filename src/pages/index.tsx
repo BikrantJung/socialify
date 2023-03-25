@@ -1,23 +1,23 @@
 import Button from "@/packages/components/button/Button";
-import { Inter } from "next/font/google";
+import { supabaseAuthClient } from "@/supabase/client";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
-import { supabase } from "@/supabase/client";
-const inter = Inter({ subsets: ["latin"] });
-const myD = {
-  username: "John1",
-  password: "johndoe1",
-  email: "john.doe1@example.com",
-};
-const createFn = async () => {
-  return await supabase.auth.getSession();
-};
-export default function Home() {
-  const { data, error, mutate } = useMutation(createFn);
-  if (error) console.log("ERROR", error);
-  if (data) console.log("Datat", data);
+
+export default function Home(props: any) {
+  const supabase = useSupabaseClient();
+  async function getSomething() {
+    const { data } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", "b8ceb110-81e0-4921-a860-593fc035b5b0");
+    if (data) {
+      console.log("DATATLLL:::", data);
+    }
+  }
+  console.log(props);
+
   return (
     <>
       <Head>
@@ -27,7 +27,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="m-4">
-        <Button onClick={() => mutate()}>Fake Request</Button>
+        <Button onClick={getSomething}>Fake Request</Button>
       </div>
       <Link href="register" className="text-sm text-blue-400 ">
         Register
@@ -35,3 +35,27 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  // Create authenticated Supabase Client
+  const supabase = supabaseAuthClient(ctx);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session)
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+
+  return {
+    props: {
+      initialSession: session,
+      user: session.user,
+    },
+  };
+};

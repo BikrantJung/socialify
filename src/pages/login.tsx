@@ -2,10 +2,12 @@ import Button from "@/packages/components/button/Button";
 import Input from "@/packages/components/input/Input";
 import { useForm } from "@/packages/hooks/useForm";
 import { useLoginUser } from "@/packages/hooks/useLoginUser";
-import { IconAt, IconError404, IconLock } from "@tabler/icons-react";
+import { supabaseAuthClient } from "@/supabase/client";
+import { IconAt, IconLock } from "@tabler/icons-react";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-function Register() {
+function LoginPage() {
   const router = useRouter();
   const { formValues, handleSubmit, handleChange } = useForm(registerUser, {
     email: "",
@@ -57,7 +59,7 @@ function Register() {
         </div>
         <div className="mb-4 flex flex-col items-center gap-2">
           <Button type="submit" loading={isLoading}>
-            Register
+            Login
           </Button>
           <p className="ml-auto text-xs">
             New to socialify?{" "}
@@ -72,4 +74,24 @@ function Register() {
   );
 }
 
-export default Register;
+export default LoginPage;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  // Create authenticated Supabase Client
+  const supabase = supabaseAuthClient(ctx);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
