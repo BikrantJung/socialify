@@ -1,10 +1,23 @@
+import Button from "@/packages/components/button/Button";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import Link from "next/link";
-
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { supabase } from "@/supabase/client";
 const inter = Inter({ subsets: ["latin"] });
-
+const myD = {
+  username: "John1",
+  password: "johndoe1",
+  email: "john.doe1@example.com",
+};
+const createFn = async () => {
+  return await supabase.auth.getSession();
+};
 export default function Home() {
+  const { data, error, mutate } = useMutation(createFn);
+  if (error) console.log("ERROR", error);
+  if (data) console.log("Datat", data);
   return (
     <>
       <Head>
@@ -13,8 +26,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <button className="mx-3">Hello world</button>
-      <Link href="register" className="text-blue-400 text-sm ">
+      <div className="m-4">
+        <Button onClick={() => mutate()}>Fake Request</Button>
+      </div>
+      <Link href="register" className="text-sm text-blue-400 ">
         Register
       </Link>
     </>

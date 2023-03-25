@@ -5,27 +5,26 @@ import { axios } from "../axios/axios";
 import { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 
-interface RegisterInput {
+interface LoginInput {
   email: string;
   password: string;
-  username: string;
 }
 
-async function createUser(registerInput: RegisterInput) {
-  return await axios.post("auth/register/", registerInput);
+async function loginUser(loginInput: LoginInput) {
+  return await axios.post("auth/login/", loginInput);
 }
 
-function useCreateUser(registerInput: RegisterInput) {
-  return useMutation(() => createUser(registerInput), {
+function useLoginUser(loginInput: LoginInput) {
+  return useMutation(() => loginUser(loginInput), {
     onError(error: AxiosError) {
       if (error.response?.data) {
         Object.values(error.response.data).map((item) => toast.error(item));
       }
     },
     onSuccess() {
-      toast.success("Registered successfully");
+      toast.success("Logged in successfully");
     },
   });
 }
 
-export { useCreateUser };
+export { useLoginUser };

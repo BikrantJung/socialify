@@ -2,10 +2,9 @@ import { useState } from "react";
 
 export const useForm = <T>(callback: () => void, initialState: T) => {
   const [formValues, setValues] = useState(initialState);
-  const [error, setError] = useState({});
-  console.log(formValues, "FORM");
+  // const [error, setError] = useState({});
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError({});
+    // setError({});
     setValues((prevValue) => {
       return {
         ...prevValue,
@@ -23,7 +22,7 @@ export const useForm = <T>(callback: () => void, initialState: T) => {
     handleChange,
     handleSubmit,
     formValues,
-    error,
-    setError,
+    // error,
+    // setError,
   };
 };

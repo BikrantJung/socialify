@@ -9,7 +9,7 @@ function Button({ loading = false, children, ...props }: ButtonProps) {
   return (
     <button
       disabled={loading}
-      className="flex h-8 items-center justify-center rounded bg-blue-500  text-sm text-white transition hover:bg-blue-600 active:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-100"
+      className="flex h-8 w-fit items-center justify-center rounded bg-blue-500 px-2  text-sm text-white transition hover:bg-blue-600 active:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-100"
       {...props}
     >
       {loading ? (
