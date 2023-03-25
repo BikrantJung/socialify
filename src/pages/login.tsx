@@ -64,7 +64,7 @@ function LoginPage() {
           <p className="ml-auto text-xs">
             New to socialify?{" "}
             <span className="text-blue-500 underline">
-              <Link href="login">Login</Link>
+              <Link href="register">Register</Link>
             </span>{" "}
           </p>
         </div>

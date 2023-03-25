@@ -1,13 +1,19 @@
 import Button from "@/packages/components/button/Button";
+import Dropzone from "@/packages/components/dropzone/Dropzone";
 import Input from "@/packages/components/input/Input";
 import { useCreateUser } from "@/packages/hooks/useCreateUser";
 import { useForm } from "@/packages/hooks/useForm";
 import { supabaseAuthClient } from "@/supabase/client";
-import { IconAt, IconLock, IconUser } from "@tabler/icons-react";
+import { IconAt, IconLock, IconTrash, IconUser } from "@tabler/icons-react";
 import { GetServerSideProps } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
 function Register() {
+  const [acceptedImages, setAcceptedImages] = useState([]);
+  const [objectUrl, setObjectUrl] = useState("");
+  console.log(acceptedImages);
   const router = useRouter();
   const { formValues, handleSubmit, handleChange } = useForm(registerUser, {
     username: "",
@@ -25,6 +31,13 @@ function Register() {
     console.log("DATA", data);
     router.replace("/");
   }
+
+  useMemo(() => {
+    if (acceptedImages.length) {
+      setObjectUrl(URL.createObjectURL(acceptedImages[0]));
+    }
+  }, [acceptedImages]);
+
   return (
     // <RegisterPageLayout>
     <div className="flex h-screen items-center justify-center gap-3 bg-slate-50">
@@ -66,6 +79,28 @@ function Register() {
             required
             onChange={handleChange}
           />
+
+          {objectUrl ? (
+            <div className="relative my-4 flex items-center justify-between rounded pr-2 shadow-md after:absolute after:top-0 after:left-0 after:h-full after:w-[3px] after:bg-purple-700 ">
+              <div className="relative mr-4 h-[80px] w-[80px]">
+                <Image
+                  alt="profile picture"
+                  src={objectUrl}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <button
+                onClick={() => setObjectUrl("")}
+                className="rounded-none text-red-500"
+              >
+                <IconTrash className="icon" />
+              </button>
+            </div>
+          ) : (
+            <Dropzone setAcceptedImages={setAcceptedImages} />
+          )}
         </div>
         <div className="mb-4 flex flex-col items-center gap-2">
           <Button type="submit" loading={isLoading}>
