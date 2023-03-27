@@ -10,6 +10,7 @@ function Button({
   loading = false,
   type = "button",
   children,
+  className,
   ...props
 }: ButtonProps) {
   return (
