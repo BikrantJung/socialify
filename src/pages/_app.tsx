@@ -54,17 +54,17 @@ export default function App({
             navbarHideLocations.includes(pageName) ? (
               ""
             ) : (
-              <div>
+              <div className="sticky top-0 z-50">
                 <Navbar />
               </div>
             )
           ) : (
-            <div>
+            <div className="sticky top-0 z-50">
               <Navbar />
             </div>
           )}
 
-          <div>
+          <div className="px-8">
             <Component {...pageProps} />
           </div>
         </div>

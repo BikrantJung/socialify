@@ -1,4 +1,5 @@
 import Button from "@/packages/components/button/Button";
+import SidebarLayout from "@/packages/layouts/SidebarLayout";
 import { supabaseAuthClient } from "@/supabase/client";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { GetServerSideProps } from "next";
@@ -22,12 +23,7 @@ export default function Home(props: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="m-4"></div>
-
-      <Button onClick={logout}>Logout</Button>
-      <Link href="register" className="text-sm text-blue-400 ">
-        Register
-      </Link>
+      <SidebarLayout>a</SidebarLayout>
     </>
   );
 }
