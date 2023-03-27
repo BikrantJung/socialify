@@ -1,18 +1,20 @@
 import React, { HTMLAttributes, ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  type?: "submit" | "button" | "reset";
   loading?: boolean;
   children: React.ReactNode;
 }
 
 function Button({
   loading = false,
+  type = "button",
   children,
-  className,
   ...props
 }: ButtonProps) {
   return (
     <button
+      type={type}
       disabled={loading}
       className={`relative flex h-8 w-fit min-w-[2.5rem] items-center justify-center rounded bg-blue-500 px-2  text-sm text-white transition hover:bg-blue-600 active:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-100 ${className}`}
       {...props}

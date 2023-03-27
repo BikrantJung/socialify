@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { root } from "@/styles/fonts";
 import "@/styles/globals.css";
 import { useState } from "react";
+import Navbar from "@/packages/components/navbar/Navbar";
 
 export default function App({
   Component,
@@ -36,7 +37,14 @@ export default function App({
         <style jsx global>
           {root}
         </style>
-        <Component {...pageProps} />
+        <div className="flex flex-col">
+          <div>
+            <Navbar />
+          </div>
+          <div>
+            <Component {...pageProps} />
+          </div>
+        </div>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </SessionContextProvider>
