@@ -1,11 +1,11 @@
-import { IconBell } from "@tabler/icons-react";
-import React from "react";
-import Button from "../button/Button";
 import Dropdown from "../dropdown/Dropdown";
 import Logo from "../logo/Logo";
 import SearchBox from "../search/Search";
-
+import { useRouter } from "next/router";
 function Navbar() {
+  const router = useRouter();
+  const pageName = router.pathname.split("/").pop();
+
   return (
     <div className="flex items-center border-b p-4">
       <div className="flex-1">

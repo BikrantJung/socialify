@@ -8,11 +8,17 @@ import { root } from "@/styles/fonts";
 import "@/styles/globals.css";
 import { useState } from "react";
 import Navbar from "@/packages/components/navbar/Navbar";
+import { useRouter } from "next/router";
+import { navbarHideLocations } from "@/packages/components/navbar/hideLocations";
 
 export default function App({
   Component,
   pageProps,
 }: AppProps<{ initialSession: Session }>) {
+  const router = useRouter();
+  const pathname = router.pathname;
+  const pageName = router.pathname.split("/").pop();
+  console.log(pageName);
   const [supabaseClient] = useState(() =>
     createBrowserSupabaseClient({
       supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_HOST,
@@ -27,6 +33,12 @@ export default function App({
       },
     },
   });
+  if (pageName) {
+  }
+  console.log(pageName);
+  console.log({
+    pageName,
+  });
   return (
     <SessionContextProvider
       supabaseClient={supabaseClient}
@@ -38,9 +50,20 @@ export default function App({
           {root}
         </style>
         <div className="flex flex-col">
-          <div>
-            <Navbar />
-          </div>
+          {pageName ? (
+            navbarHideLocations.includes(pageName) ? (
+              ""
+            ) : (
+              <div>
+                <Navbar />
+              </div>
+            )
+          ) : (
+            <div>
+              <Navbar />
+            </div>
+          )}
+
           <div>
             <Component {...pageProps} />
           </div>
