@@ -4,18 +4,17 @@ import { useMutation } from "@tanstack/react-query";
 import { axios } from "../axios/axios";
 import { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
+import { IUserRegister } from "../types/auth/register.types";
 
-interface RegisterInput {
-  email: string;
-  password: string;
-  username: string;
+async function createUser(registerInput: IUserRegister) {
+  return await axios.post("auth/register/", registerInput, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
-async function createUser(registerInput: RegisterInput) {
-  return await axios.post("auth/register/", registerInput);
-}
-
-function useCreateUser(registerInput: RegisterInput) {
+function useCreateUser(registerInput: IUserRegister) {
   return useMutation(() => createUser(registerInput), {
     onError(error: AxiosError) {
       if (error.response?.data) {

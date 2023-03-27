@@ -12,11 +12,13 @@ export default function Home(props: any) {
       .from("profiles")
       .select()
       .eq("id", "b8ceb110-81e0-4921-a860-593fc035b5b0");
-    if (data) {
-      console.log("DATATLLL:::", data);
+  }
+  async function logout() {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      window.location.reload();
     }
   }
-  console.log(props);
 
   return (
     <>
@@ -29,6 +31,12 @@ export default function Home(props: any) {
       <div className="m-4">
         <Button onClick={getSomething}>Fake Request</Button>
       </div>
+      <img
+        src="https://iaklhqbxgftzqbrditoh.supabase.co/storage/v1/object/public/avatars/public/IMG_20230322_124338 (1) (1).jpg"
+        alt=""
+      />
+
+      <Button onClick={logout}>Logout</Button>
       <Link href="register" className="text-sm text-blue-400 ">
         Register
       </Link>
@@ -47,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!session)
     return {
       redirect: {
-        destination: "/login",
+        destination: "/register",
         permanent: false,
       },
     };

@@ -1,42 +1,45 @@
 import Button from "@/packages/components/button/Button";
-import Dropzone from "@/packages/components/dropzone/Dropzone";
 import Input from "@/packages/components/input/Input";
 import { useCreateUser } from "@/packages/hooks/useCreateUser";
 import { useForm } from "@/packages/hooks/useForm";
+import { IUserRegister } from "@/packages/types/auth/register.types";
 import { supabaseAuthClient } from "@/supabase/client";
-import { IconAt, IconLock, IconTrash, IconUser } from "@tabler/icons-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import {
+  IconAt,
+  IconLock,
+  IconPhoto,
+  IconTrash,
+  IconUser,
+} from "@tabler/icons-react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 function Register() {
-  const [acceptedImages, setAcceptedImages] = useState([]);
-  const [objectUrl, setObjectUrl] = useState("");
-  console.log(acceptedImages);
+  const supabase = useSupabaseClient();
+  const [image, setImage] = useState<IUserRegister["profile_picture"]>(null);
   const router = useRouter();
   const { formValues, handleSubmit, handleChange } = useForm(registerUser, {
     username: "",
     email: "",
     password: "",
   });
-  const { data, isLoading, mutate, isSuccess, isError, error } =
-    useCreateUser(formValues);
-  function registerUser() {
+  console.log(formValues, "Form values");
+  const { data, isLoading, mutate, isSuccess, isError, error } = useCreateUser({
+    ...formValues,
+    profile_picture: image,
+  });
+
+  async function registerUser() {
     mutate();
   }
 
-  console.log("IS ERROR", isError);
   if (isSuccess) {
     console.log("DATA", data);
-    router.replace("/");
+    // router.replace("/");
   }
-
-  useMemo(() => {
-    if (acceptedImages.length) {
-      setObjectUrl(URL.createObjectURL(acceptedImages[0]));
-    }
-  }, [acceptedImages]);
 
   return (
     // <RegisterPageLayout>
@@ -79,27 +82,53 @@ function Register() {
             required
             onChange={handleChange}
           />
-
-          {objectUrl ? (
-            <div className="relative my-4 flex items-center justify-between rounded pr-2 shadow-md after:absolute after:top-0 after:left-0 after:h-full after:w-[3px] after:bg-purple-700 ">
+          {image ? (
+            <div className="relative my-4 flex items-center rounded pr-2 shadow-md after:absolute after:top-0 after:left-0 after:h-full after:w-[3px] after:bg-purple-500 ">
               <div className="relative mr-4 h-[80px] w-[80px]">
                 <Image
                   alt="profile picture"
-                  src={objectUrl}
+                  src={URL.createObjectURL(image)}
                   fill
                   className="object-contain"
                 />
               </div>
-
+              <p className="mr-auto w-[100px] truncate text-xs  ">
+                {image.name}
+              </p>
+              <p className="mx-4 rounded border-0 bg-purple-300 p-1 text-xs text-slate-800">
+                {(image.size / (1024 * 1024)).toFixed(2)} MB
+              </p>
               <button
-                onClick={() => setObjectUrl("")}
+                type="button"
+                onClick={() => setImage(null)}
                 className="rounded-none text-red-500"
               >
                 <IconTrash className="icon" />
               </button>
             </div>
           ) : (
-            <Dropzone setAcceptedImages={setAcceptedImages} />
+            <div>
+              <label
+                htmlFor="profile_picture"
+                className="flex h-8 w-fit min-w-[2.5] items-center gap-1 rounded bg-purple-500 px-2 text-white focus-within:shadow-ring hover:bg-purple-600"
+              >
+                <input
+                  className="sr-only"
+                  id="profile_picture"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const files = e.target.files;
+
+                    if (files) {
+                      setImage(files[0]);
+                    }
+                  }}
+                />{" "}
+                <IconPhoto className="icon h-4 w-4" />
+                <p className="text-xs">Choose an image</p>
+              </label>
+            </div>
           )}
         </div>
         <div className="mb-4 flex flex-col items-center gap-2">

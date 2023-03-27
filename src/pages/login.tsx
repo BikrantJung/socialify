@@ -21,7 +21,6 @@ function LoginPage() {
   }
 
   if (isSuccess) {
-    console.log("DATA", data);
     // router.replace("/");
   }
   return (

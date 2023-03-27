@@ -18,14 +18,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error(error.message);
     }
 
-    console.log(session);
     if (user) {
       console.log("USER ID", user.id);
       const { data: profile, error } = await supabaseServer
         .from("profiles")
         .select()
         .eq("id", "b8ceb110-81e0-4921-a860-593fc035b5b0");
-      console.log("DATA==========>", profile);
       if (error) throw new Error(error.message);
       return res.status(200).json({ profile, ...user });
     }
