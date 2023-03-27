@@ -7,12 +7,6 @@ import Link from "next/link";
 
 export default function Home(props: any) {
   const supabase = useSupabaseClient();
-  async function getSomething() {
-    const { data } = await supabase
-      .from("profiles")
-      .select()
-      .eq("id", "b8ceb110-81e0-4921-a860-593fc035b5b0");
-  }
   async function logout() {
     const { error } = await supabase.auth.signOut();
     if (!error) {
@@ -28,13 +22,7 @@ export default function Home(props: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="m-4">
-        <Button onClick={getSomething}>Fake Request</Button>
-      </div>
-      <img
-        src="https://iaklhqbxgftzqbrditoh.supabase.co/storage/v1/object/public/avatars/public/IMG_20230322_124338 (1) (1).jpg"
-        alt=""
-      />
+      <div className="m-4"></div>
 
       <Button onClick={logout}>Logout</Button>
       <Link href="register" className="text-sm text-blue-400 ">

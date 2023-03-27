@@ -4,7 +4,6 @@ import { useCreateUser } from "@/packages/hooks/useCreateUser";
 import { useForm } from "@/packages/hooks/useForm";
 import { IUserRegister } from "@/packages/types/auth/register.types";
 import { supabaseAuthClient } from "@/supabase/client";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   IconAt,
   IconLock,
@@ -18,7 +17,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 function Register() {
-  const supabase = useSupabaseClient();
   const [image, setImage] = useState<IUserRegister["profile_picture"]>(null);
   const router = useRouter();
   const { formValues, handleSubmit, handleChange } = useForm(registerUser, {
@@ -37,8 +35,7 @@ function Register() {
   }
 
   if (isSuccess) {
-    console.log("DATA", data);
-    // router.replace("/");
+    router.replace("/");
   }
 
   return (
@@ -131,11 +128,11 @@ function Register() {
             </div>
           )}
         </div>
-        <div className="mb-4 flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-2">
           <Button type="submit" loading={isLoading}>
             Register
           </Button>
-          <p className="ml-auto text-xs">
+          <p className="mt-4 ml-auto text-xs">
             Already have an account?{" "}
             <span className="text-blue-500 underline">
               <Link href="login">Login</Link>

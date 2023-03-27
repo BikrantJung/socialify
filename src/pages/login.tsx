@@ -56,11 +56,11 @@ function LoginPage() {
             onChange={handleChange}
           />
         </div>
-        <div className="mb-4 flex flex-col items-center gap-2">
+        <div className=" flex flex-col items-center gap-2">
           <Button type="submit" loading={isLoading}>
             Login
           </Button>
-          <p className="ml-auto text-xs">
+          <p className="mt-4 ml-auto text-xs">
             New to socialify?{" "}
             <span className="text-blue-500 underline">
               <Link href="register">Register</Link>
