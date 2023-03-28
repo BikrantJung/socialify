@@ -7,9 +7,9 @@ import { Toaster } from "react-hot-toast";
 import { root } from "@/styles/fonts";
 import "@/styles/globals.css";
 import { useState } from "react";
-import Navbar from "@/packages/components/navbar/Navbar";
+import Navbar from "@/packages/components/shared/navbar/Navbar";
 import { useRouter } from "next/router";
-import { navbarHideLocations } from "@/packages/components/navbar/hideLocations";
+import { navbarHideLocations } from "@/packages/components/shared/navbar/hideLocations";
 
 export default function App({
   Component,
