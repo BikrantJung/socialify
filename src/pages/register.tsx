@@ -1,5 +1,5 @@
 import Button from "@/packages/components/shared/button/Button";
-import Input from "@/packages/components/input/Input";
+import Input from "@/packages/components/shared/input/Input";
 import { useCreateUser } from "@/packages/hooks/useCreateUser";
 import { useForm } from "@/packages/hooks/useForm";
 import { IUserRegister } from "@/packages/types/auth/register.types";

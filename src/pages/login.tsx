@@ -1,5 +1,5 @@
 import Button from "@/packages/components/shared/button/Button";
-import Input from "@/packages/components/input/Input";
+import Input from "@/packages/components/shared/input/Input";
 import { useForm } from "@/packages/hooks/useForm";
 import { useLoginUser } from "@/packages/hooks/useLoginUser";
 import { supabaseAuthClient } from "@/supabase/client";

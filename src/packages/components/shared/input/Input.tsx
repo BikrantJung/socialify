@@ -3,7 +3,7 @@ import React, { HTMLAttributes, InputHTMLAttributes } from "react";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 interface ParentProps {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 function Input({
