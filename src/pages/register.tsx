@@ -1,4 +1,4 @@
-import Button from "@/packages/components/button/Button";
+import Button from "@/packages/components/shared/button/Button";
 import Input from "@/packages/components/input/Input";
 import { useCreateUser } from "@/packages/hooks/useCreateUser";
 import { useForm } from "@/packages/hooks/useForm";

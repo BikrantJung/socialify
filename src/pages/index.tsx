@@ -1,4 +1,4 @@
-import Button from "@/packages/components/button/Button";
+import Button from "@/packages/components/shared/button/Button";
 import SidebarLayout from "@/packages/layouts/SidebarLayout";
 import { supabaseAuthClient } from "@/supabase/client";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
