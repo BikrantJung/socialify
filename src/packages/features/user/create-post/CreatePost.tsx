@@ -1,14 +1,15 @@
 import ProfileIcon from "@/packages/components/sections/sidebar/ProfileIcon";
-import Input from "@/packages/components/shared/input/Input";
-import Modal from "@/packages/components/shared/modal/Modal";
+import { useForm } from "@/packages/hooks/useForm";
 import { IconPhoto } from "@tabler/icons-react";
-import React, { useState } from "react";
+import { useState } from "react";
+import CreatePostModal from "./CreatePostModal";
 
 function CreatePost() {
   const [open, setOpen] = useState(false);
+
   return (
     <>
-      <Modal isOpen={open} onClose={() => setOpen(false)} />
+      <CreatePostModal isOpen={open} onClose={() => setOpen(false)} />
       <div
         onClick={() => setOpen(true)}
         role="button"

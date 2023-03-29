@@ -3,9 +3,11 @@ import { ButtonProps } from "./button.types";
 
 export function generateButtonClassName({
   variant = "solid",
+  className,
 }: Omit<ButtonProps, "children">) {
-  const className = clsx([
-    "relative h-8 w-fit min-w-[2.5rem] flex items-center gap-1 justify-center rounded px-2  text-sm  transition disabled:cursor-not-allowed",
+  const classNames = clsx([
+    "relative cursor-pointer h-8 w-fit min-w-[2.5rem] flex items-center gap-1 justify-center rounded px-2  text-sm  transition disabled:cursor-not-allowed",
+    className,
     {
       "bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700 disabled:hover:bg-blue-500":
         variant === "solid",
@@ -15,5 +17,5 @@ export function generateButtonClassName({
         variant === "outlined",
     },
   ]);
-  return className;
+  return classNames;
 }
