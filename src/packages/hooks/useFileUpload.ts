@@ -35,5 +35,13 @@ export const useFileUpload = ({ fileType }: IFileUpload) => {
       }
     }
   }
-  return { uploadedFiles, setUploadedFiles, handleFileChange };
+  function resetUploadedFiles() {
+    setUploadedFiles([]);
+  }
+  return {
+    uploadedFiles,
+    setUploadedFiles,
+    resetUploadedFiles,
+    handleFileChange,
+  };
 };

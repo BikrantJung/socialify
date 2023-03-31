@@ -5,10 +5,13 @@ import BaseModal from "@/packages/components/shared/modal/BaseModal";
 import { IconPhoto, IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import TextArea from "react-textarea-autosize";
 import { useFileUpload } from "@/packages/hooks/useFileUpload";
 import { useForm } from "@/packages/hooks/useForm";
+import { useCreatePost } from "./hooks/useCreatePost";
+import { IUserRegister } from "@/packages/types/auth/register.types";
+import { ICreatePost } from "./create-post.types";
 
 interface CreatePostModal {
   isOpen: boolean;
@@ -16,32 +19,56 @@ interface CreatePostModal {
 }
 function CreatePostModal({ onClose, isOpen }: CreatePostModal) {
   const createPostInput = useRef<HTMLTextAreaElement>(null);
+
+  //   File upload hook
   const { handleFileChange, setUploadedFiles, uploadedFiles } = useFileUpload({
     fileType: "image/",
   });
+  //   Use Form Hook
   const {
     formValues: createPostValues,
     handleChange,
     handleSubmit,
-  } = useForm(() => {}, {
+    setValues,
+  } = useForm<Omit<ICreatePost, "postImages">>(createPost, {
     postTitle: "",
   });
+
+  //   Create Post Hook
+  const { data, error, isSuccess, isLoading, mutate } = useCreatePost({
+    ...createPostValues,
+    postImages: uploadedFiles.map((item) => item.file),
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setValues({ postTitle: "" });
+      setUploadedFiles([]);
+      onClose();
+    }
+  }, [isSuccess, setUploadedFiles, onClose, setValues]);
+
+  //   Remove Image
   const handleRemoveImage = (id: number) => {
     setUploadedFiles((prevImages) =>
       prevImages.filter((image) => image.id !== id)
     );
   };
 
+  function createPost() {
+    mutate();
+  }
+
   return (
     <BaseModal onClose={onClose} isOpen={isOpen} title="Create new Post">
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mt-2">
           <div
             className="h-28 cursor-text"
             onClick={() => createPostInput.current?.focus()}
           >
             <TextArea
-              name="post-title"
+              name="postTitle"
               onChange={handleChange}
               ref={createPostInput}
               maxRows={4}
@@ -79,7 +106,7 @@ function CreatePostModal({ onClose, isOpen }: CreatePostModal) {
             <span>Upload</span>
             <input
               type="file"
-              onChange={handleFileChange}
+              onChange={(e) => handleFileChange(e)}
               accept="image/*"
               id="post-image"
               className="sr-only"
@@ -88,11 +115,13 @@ function CreatePostModal({ onClose, isOpen }: CreatePostModal) {
           </LabelButton>
 
           <div className="ml-auto flex items-center gap-2">
-            <Button variant="outlined" onClick={onClose}>
+            <Button variant="outlined" onClick={() => onClose()}>
               Cancel
             </Button>
 
-            <Button type="submit">Create</Button>
+            <Button type="submit" loading={isLoading}>
+              Create
+            </Button>
           </div>
         </div>
       </form>

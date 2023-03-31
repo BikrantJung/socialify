@@ -2,27 +2,28 @@ import React, { useState } from "react";
 import { supabase } from "@/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
+import { ICreatePost } from "../create-post.types";
+import { axios } from "@/packages/axios/axios";
 
-interface CreatePostInput {
-  postTiele: string;
-  password: string;
+async function createPost(createPostInput: ICreatePost) {
+  return await axios.post("user/create-post/", createPostInput, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
-async function createPost(loginInput: CreatePostInput) {
-  return await axios.post("user/create-post", loginInput);
-}
-
-function useCreatePost(loginInput: CreatePostInput) {
-  return useMutation(() => createPost(loginInput), {
+function useCreatePost(createPostInput: ICreatePost) {
+  return useMutation(() => createPost(createPostInput), {
     onError(error: AxiosError) {
       if (error.response?.data) {
         Object.values(error.response.data).map((item) => toast.error(item));
       }
     },
     onSuccess() {
-      toast.success("Logged in successfully");
+      toast.success("New post created");
     },
   });
 }

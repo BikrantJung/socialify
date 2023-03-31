@@ -14,11 +14,10 @@ export default function BaseModal({
   onClose,
   children,
 }: BaseModalProps) {
-  console.log(isOpen);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-40" onClose={onClose}>
+        <Dialog as="div" className="relative z-40" onClose={() => onClose()}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

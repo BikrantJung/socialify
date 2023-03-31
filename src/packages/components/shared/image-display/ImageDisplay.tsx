@@ -29,7 +29,7 @@ function ImageDisplay({
       </p>
       <button
         type="button"
-        onClick={removeImage}
+        onClick={() => removeImage?.()}
         className="rounded-none text-red-500"
       >
         <IconTrash className="icon" />
