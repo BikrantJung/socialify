@@ -1,12 +1,17 @@
+import Main from "@/packages/components/sections/main/Main";
 import Button from "@/packages/components/shared/button/Button";
+import PostCard from "@/packages/components/shared/card/PostCard";
 import SidebarLayout from "@/packages/layouts/SidebarLayout";
+import { IPost } from "@/packages/types/posts/post.types";
 import { supabaseAuthClient } from "@/supabase/client";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-
-export default function Home(props: any) {
+interface HomeProps {
+  posts: IPost[];
+}
+export default function Home(props: HomeProps) {
   const supabase = useSupabaseClient();
   async function logout() {
     const { error } = await supabase.auth.signOut();
@@ -14,6 +19,7 @@ export default function Home(props: any) {
       window.location.reload();
     }
   }
+  console.log(props.posts, "POSTS");
 
   return (
     <>
@@ -23,7 +29,13 @@ export default function Home(props: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SidebarLayout>a</SidebarLayout>
+
+      <SidebarLayout>
+        <div className="col-span-8 flex flex-col gap-4 px-32 pt-2">
+          <Main posts={props.posts} />
+        </div>
+        <div className="col-span-2 bg-blue-400">Right</div>
+      </SidebarLayout>
     </>
   );
 }
@@ -44,10 +56,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
 
+  const {
+    data: postData,
+    error: postError,
+    count,
+  } = await supabase.from("posts").select("*,profiles(*)");
+  console.log(postData, "POSTDATA");
+
   return {
     props: {
       initialSession: session,
       user: session.user,
+      posts: postData,
     },
   };
 };
