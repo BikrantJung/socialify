@@ -66,11 +66,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             post_images: files_paths,
             user_id: session?.user.id,
           })
-          .select();
-
+          .select()
+          .single();
         if (createPostError) throw new Error(createPostError.message);
 
-        res.status(200).json({ createPostData });
+        const { data: profileData, error: profileError } = await supabase
+          .from("profiles")
+          .select()
+          .eq("id", session?.user.id)
+          .single();
+
+        if (profileError) throw new Error(profileError.message);
+        createPostData.profiles = profileData;
+        console.log("Create POST DAATA==========", createPostData);
+        res.status(200).json(createPostData);
       } else {
         res.status(400).json({ msg: "Session Not Found" });
       }

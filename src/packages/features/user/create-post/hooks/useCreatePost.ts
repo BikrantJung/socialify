@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { supabase } from "@/supabase/client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
@@ -16,14 +16,18 @@ async function createPost(createPostInput: ICreatePost) {
 }
 
 function useCreatePost(createPostInput: ICreatePost) {
+  const queryClient = useQueryClient();
   return useMutation(() => createPost(createPostInput), {
     onError(error: AxiosError) {
       if (error.response?.data) {
         Object.values(error.response.data).map((item) => toast.error(item));
       }
     },
-    onSuccess() {
+    onSuccess(data: any) {
       toast.success("New post created");
+      queryClient.setQueryData(["posts"], (oldData: any) => {
+        return [data.data, ...oldData];
+      });
     },
   });
 }

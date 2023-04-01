@@ -1,5 +1,5 @@
 export interface IUserProfile {
   id: string;
-  usrename: string;
+  username: string;
   profile_picture: string;
 }

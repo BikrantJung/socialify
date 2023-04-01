@@ -14,7 +14,10 @@ export default async function handler(
     // const d = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     // const json = await d.json();
     // console.log("JSON PLaceholder", json);
-    const { data, error } = await supabase.from("posts").select();
+    const { data, error } = await supabase
+      .from("posts")
+      .select("*,profiles(*)")
+      .order("created_at", { ascending: false });
     // console.log("DATA from supabase", data);
     return res.status(200).json(data);
     // console.log("==================SERVER DATA=====================");

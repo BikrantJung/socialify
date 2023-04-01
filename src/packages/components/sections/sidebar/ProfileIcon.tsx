@@ -15,11 +15,14 @@ function ProfileIcon({
 }: ProfileIconProps) {
   const defaultProfilePic =
     "https://images.pexels.com/photos/7485787/pexels-photo-7485787.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+  const userProfilePic =
+    "https://iaklhqbxgftzqbrditoh.supabase.co/storage/v1/object/public/avatars/" +
+    src;
   return (
     <div className="relative h-8 w-8 rounded-full">
       <Image
         alt="Profile Picture"
-        src={src || defaultProfilePic}
+        src={src ? userProfilePic : defaultProfilePic}
         fill
         className="h-8  w-8 rounded-full object-cover"
       />
