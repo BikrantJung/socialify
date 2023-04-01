@@ -1,25 +1,15 @@
 import Main from "@/packages/components/sections/main/Main";
-import Button from "@/packages/components/shared/button/Button";
-import PostCard from "@/packages/components/shared/card/PostCard";
+import { useFetchPosts } from "@/packages/hooks/useFetchPosts";
 import SidebarLayout from "@/packages/layouts/SidebarLayout";
 import { IPost } from "@/packages/types/posts/post.types";
 import { supabaseAuthClient } from "@/supabase/client";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
 interface HomeProps {
   posts: IPost[];
 }
-export default function Home(props: HomeProps) {
-  const supabase = useSupabaseClient();
-  async function logout() {
-    const { error } = await supabase.auth.signOut();
-    if (!error) {
-      window.location.reload();
-    }
-  }
-  console.log(props.posts, "POSTS");
+export default function Home() {
+  const { data, isLoading } = useFetchPosts();
 
   return (
     <>
@@ -29,10 +19,9 @@ export default function Home(props: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <SidebarLayout>
         <div className="col-span-8 flex flex-col gap-4 px-32 pt-2">
-          <Main posts={props.posts} />
+          <Main posts={data} />
         </div>
         <div className="col-span-2 bg-blue-400">Right</div>
       </SidebarLayout>
@@ -42,6 +31,7 @@ export default function Home(props: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Create authenticated Supabase Client
+
   const supabase = supabaseAuthClient(ctx);
   // Check if we have a session
   const {
@@ -56,18 +46,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
 
-  const {
-    data: postData,
-    error: postError,
-    count,
-  } = await supabase.from("posts").select("*,profiles(*)");
-  console.log(postData, "POSTDATA");
-
   return {
     props: {
-      initialSession: session,
-      user: session.user,
-      posts: postData,
+      data: "",
     },
   };
 };

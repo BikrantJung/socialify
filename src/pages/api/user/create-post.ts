@@ -57,7 +57,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           if (uploadError) throw new Error(uploadError.message);
           files_paths.push(uploadData?.path);
         }
-        console.log("FILES PATHS", files_paths);
 
         // Now actually create a post
         const { data: createPostData, error: createPostError } = await supabase

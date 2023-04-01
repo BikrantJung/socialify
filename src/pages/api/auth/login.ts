@@ -19,7 +19,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (user) {
-      console.log("USER ID", user.id);
       const { data: profile, error } = await supabaseServer
         .from("profiles")
         .select()

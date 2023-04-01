@@ -6,7 +6,6 @@ import ProfileIcon from "./ProfileIcon";
 
 function SidebarPages() {
   const router = useRouter();
-  console.log("LOCATION", router.pathname);
   return (
     <div className="flex flex-col rounded bg-white">
       {sidebarUserPages.map((data) => {

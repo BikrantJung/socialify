@@ -24,7 +24,6 @@ function Register() {
     email: "",
     password: "",
   });
-  console.log(formValues, "Form values");
   const { data, isLoading, mutate, isSuccess, isError, error } = useCreateUser({
     ...formValues,
     profile_picture: image,

@@ -10,7 +10,6 @@ interface SidebarMenuProps {
 function SidebarMenu() {
   const router = useRouter();
   const { sidebarMenuData } = useSidebarMenu({ username: "bikrant" });
-  console.log("LOCATION", router.pathname);
   return (
     <div className="flex flex-col rounded bg-white">
       {sidebarMenuData.map((data) => {

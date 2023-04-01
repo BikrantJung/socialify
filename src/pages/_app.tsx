@@ -1,44 +1,47 @@
 import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Session, SessionContextProvider } from "@supabase/auth-helpers-react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  DehydratedState,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { root } from "@/styles/fonts";
 import "@/styles/globals.css";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/packages/components/shared/navbar/Navbar";
 import { useRouter } from "next/router";
 import { navbarHideLocations } from "@/packages/components/shared/navbar/hideLocations";
-
-export default function App({
-  Component,
-  pageProps,
-}: AppProps<{ initialSession: Session }>) {
+import { Hydrate } from "@tanstack/react-query";
+export default function App({ Component, pageProps }: AppProps) {
+  const [staleTime, setStaleTime] = useState(0);
+  useEffect(() => {
+    setStaleTime(5 * 30 * 1000);
+  }, []);
   const router = useRouter();
-  const pathname = router.pathname;
   const pageName = router.pathname.split("/").pop();
-  console.log(pageName);
+
   const [supabaseClient] = useState(() =>
     createBrowserSupabaseClient({
       supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_HOST,
       supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON,
     })
   );
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: 0,
-        refetchOnMount: false,
-      },
-    },
-  });
-  if (pageName) {
-  }
-  console.log(pageName);
-  console.log({
-    pageName,
-  });
+
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            staleTime: 300000,
+          },
+        },
+      })
+  );
   return (
     <SessionContextProvider
       supabaseClient={supabaseClient}
