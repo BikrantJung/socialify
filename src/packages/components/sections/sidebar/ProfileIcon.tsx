@@ -19,12 +19,12 @@ function ProfileIcon({
     "https://iaklhqbxgftzqbrditoh.supabase.co/storage/v1/object/public/avatars/" +
     src;
   return (
-    <div className="relative h-8 w-8 rounded-full">
+    <div className="relative h-8 w-8 rounded-lg">
       <Image
         alt="Profile Picture"
         src={src ? userProfilePic : defaultProfilePic}
         fill
-        className="h-8  w-8 rounded-full object-cover"
+        className="h-8  w-8 rounded-lg object-cover"
       />
       {profileType === "user" && (
         <div

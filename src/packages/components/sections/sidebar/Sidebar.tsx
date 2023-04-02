@@ -6,7 +6,7 @@ import SidebarUser from "./SidebarUser";
 
 function Sidebar() {
   return (
-    <div className="fixed flex h-[85vh] w-52 flex-col overflow-hidden py-2 hover:overflow-y-scroll">
+    <div className="hideScrollbar fixed flex h-[85vh] w-52 flex-col py-2 ">
       <SidebarUser />
       <div className="mt-4">
         <SidebarMenu />

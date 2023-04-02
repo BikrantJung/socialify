@@ -11,10 +11,12 @@ export function generateButtonClassName({
     {
       "bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700 disabled:hover:bg-blue-500":
         variant === "solid",
-      "bg-gray-100 text-black hover:bg-gray-200 active:bg-gray-300 disabled:hover:bg-gray-100":
+      "bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300 disabled:hover:bg-gray-100":
         variant === "neutral",
-      "bg-transparent text-black border hover:bg-gray-50 active:bg-gray-100 disabled:hover:bg-transparent":
+      "bg-transparent text-gray-700 border hover:bg-gray-50 active:bg-gray-100 disabled:hover:bg-transparent":
         variant === "outlined",
+      "bg-transparent  hover:bg-gray-50 active:bg-gray-100 disabled:hover:bg-transparent":
+        variant === "ghost",
     },
   ]);
   return classNames;

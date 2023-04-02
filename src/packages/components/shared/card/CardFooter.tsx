@@ -5,6 +5,7 @@ import {
   IconShare,
 } from "@tabler/icons-react";
 import React from "react";
+import Button from "../button/Button";
 
 function CardFooter() {
   return (
@@ -32,13 +33,13 @@ interface CardFooterButtons {
 }
 function CardFooterButtons({ children, title }: CardFooterButtons) {
   return (
-    <button className="flex items-center justify-center gap-1 rounded border  px-2 py-1 text-gray-500 hover:bg-neutral-200/70">
+    <Button variant="ghost">
       {children}
 
       <span className="heading-text text-xs font-semibold text-inherit">
         {title}
       </span>
-    </button>
+    </Button>
   );
 }
 

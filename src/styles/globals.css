@@ -35,4 +35,22 @@
   .icon {
     @apply h-5 w-5 stroke-[1.5px];
   }
+  div.hideScrollbar {
+    overflow-y: auto;
+  }
+  div.hideScrollbar::-webkit-scrollbar {
+    @apply bg-transparent;
+  }
+  div.hideScrollbar::-webkit-scrollbar-track {
+    @apply shadow-none;
+  }
+  div.hideScrollbar::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
+  }
+  div.hideScrollbar:hover::-webkit-scrollbar-thumb {
+    @apply bg-gray-300;
+  }
+  div.hideScrollbar:hover::-webkit-scrollbar {
+    display: block;
+  }
 }

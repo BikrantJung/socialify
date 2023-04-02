@@ -1,4 +1,5 @@
 import Main from "@/packages/components/sections/main/Main";
+import RightBar from "@/packages/components/sections/rightbar/RightBar";
 import { useFetchPosts } from "@/packages/hooks/useFetchPosts";
 import SidebarLayout from "@/packages/layouts/SidebarLayout";
 import { IPost } from "@/packages/types/posts/post.types";
@@ -8,7 +9,8 @@ import Head from "next/head";
 interface HomeProps {
   posts: IPost[];
 }
-export default function Home() {
+export default function Home(props: any) {
+  console.log(props);
   const { data, isLoading } = useFetchPosts();
 
   return (
@@ -20,10 +22,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SidebarLayout>
-        <div className="col-span-8 flex flex-col gap-4 px-32 pt-2">
+        <div className="col-start-4 col-end-9 flex flex-col gap-4  pt-2">
           <Main posts={data} />
         </div>
-        <div className="col-span-2 bg-blue-400">Right</div>
+        <div className="col-start-10 col-end-12 bg-blue-400">
+          <RightBar />
+        </div>
       </SidebarLayout>
     </>
   );
@@ -45,10 +49,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         permanent: false,
       },
     };
+  const { data: profileData, error } = await supabase
+    .from("profiles")
+    .select()
+    .eq("id", session.user.id)
+    .single();
 
   return {
     props: {
-      data: "",
+      profileData,
     },
   };
 };

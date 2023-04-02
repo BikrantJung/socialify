@@ -11,9 +11,9 @@ function Navbar() {
       <div className="col-span-2">
         <Logo />
       </div>
-      <div className="col-span-10 ml-32 flex items-center">
+      <div className="col-start-4 col-end-13 flex items-center">
         <SearchBox placeholder="Search..." />
-        <div className="ml-auto flex items-center gap-2 ">
+        <div className=" ml-auto flex items-center gap-2">
           <Dropdown></Dropdown>
         </div>
       </div>
