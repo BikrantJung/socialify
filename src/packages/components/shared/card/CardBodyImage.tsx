@@ -32,6 +32,7 @@ function CardBodyImage({ post_images }: { post_images: string[] }) {
       }
       swipeable={true}
       showStatus={false}
+      showThumbs={false}
       showIndicators={false}
     >
       {post_images?.map((item) => {

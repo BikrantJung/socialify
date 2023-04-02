@@ -11,8 +11,6 @@ function PostCard({
   user_id,
   profiles: { profile_picture, id: userId, username },
 }: IPost) {
-  console.log(post_images);
-
   return (
     <div className="relative border bg-white py-4">
       {/* Post Header */}

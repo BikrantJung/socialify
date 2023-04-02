@@ -15,7 +15,11 @@ import Navbar from "@/packages/components/shared/navbar/Navbar";
 import { useRouter } from "next/router";
 import { navbarHideLocations } from "@/packages/components/shared/navbar/hideLocations";
 import { Hydrate } from "@tanstack/react-query";
-export default function App({ Component, pageProps }: AppProps) {
+import { IUserProfile } from "@/packages/types/auth/profile.types";
+export default function App({
+  Component,
+  pageProps,
+}: AppProps<{ initialSession: Session; profileData: IUserProfile }>) {
   const [staleTime, setStaleTime] = useState(0);
   useEffect(() => {
     setStaleTime(5 * 30 * 1000);
@@ -58,12 +62,12 @@ export default function App({ Component, pageProps }: AppProps) {
               ""
             ) : (
               <div className="sticky top-0 z-20">
-                <Navbar />
+                <Navbar user={pageProps.profileData} />
               </div>
             )
           ) : (
             <div className="sticky top-0 z-20">
-              <Navbar />
+              <Navbar user={pageProps.profileData} />
             </div>
           )}
 

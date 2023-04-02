@@ -2,16 +2,24 @@ import Main from "@/packages/components/sections/main/Main";
 import RightBar from "@/packages/components/sections/rightbar/RightBar";
 import { useFetchPosts } from "@/packages/hooks/useFetchPosts";
 import SidebarLayout from "@/packages/layouts/SidebarLayout";
+import { IUserProfile } from "@/packages/types/auth/profile.types";
 import { IPost } from "@/packages/types/posts/post.types";
 import { supabaseAuthClient } from "@/supabase/client";
+import { useUserStore } from "@/zustand/useUserStore";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 interface HomeProps {
-  posts: IPost[];
+  profileData: IUserProfile;
 }
-export default function Home(props: any) {
-  console.log(props);
+export default function Home(props: HomeProps) {
   const { data, isLoading } = useFetchPosts();
+  // useEffect(() => {
+  //   useUserStore.getState().setUser(props.profileData);
+  // }, [props.profileData]);
+  // useUserStore.setState({
+  //   user: props.profileData,
+  // });
 
   return (
     <>
@@ -54,10 +62,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     .select()
     .eq("id", session.user.id)
     .single();
-
+  useUserStore.setState({
+    user: profileData as IUserProfile,
+  });
   return {
     props: {
-      profileData,
+      profileData: useUserStore.getState().user,
     },
   };
 };
